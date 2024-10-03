@@ -121,6 +121,10 @@
 -define:TEXTCORE_FONT_ENGINE_1_5_OR_NEWER
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
+-r:"Assets/RestClient-develop/demo/Assets/Packages/Proyecto26.RestClient.2.6.2/lib/net35/Proyecto26.RestClient.dll"
+-r:"Assets/RestClient-develop/demo/Assets/Packages/RSG.Promise.3.0.1/lib/net35/RSG.Promise.dll"
+-r:"Assets/RestClient-develop/src/dlls/UnityEditor.dll"
+-r:"Assets/RestClient-develop/src/dlls/UnityEngine.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2022.3.25f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2022.3.25f1/Editor/Data/Managed/UnityEngine/UnityEditor.DeviceSimulatorModule.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2022.3.25f1/Editor/Data/Managed/UnityEngine/UnityEditor.DiagnosticsModule.dll"
@@ -330,6 +334,8 @@
 -r:"Library/PackageCache/com.unity.visualscripting@1.9.2/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Cinemachine.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/com.unity.cinemachine.editor.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aE.dag/Proyecto26.RestClient.Demo.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aE.dag/Proyecto26.RestClient.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.EditorCoroutines.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.InputSystem.ForUI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.InputSystem.ref.dll"
@@ -361,6 +367,10 @@
 "Assets/Script/PlayerController.cs"
 "Assets/Script/RankData.cs"
 "Assets/Script/RankUIManager.cs"
+"Assets/SimpleJSON-master/SimpleJSON.cs"
+"Assets/SimpleJSON-master/SimpleJSONBinary.cs"
+"Assets/SimpleJSON-master/SimpleJSONDotNetTypes.cs"
+"Assets/SimpleJSON-master/SimpleJSONUnity.cs"
 -langversion:9.0
 /deterministic
 /optimize+

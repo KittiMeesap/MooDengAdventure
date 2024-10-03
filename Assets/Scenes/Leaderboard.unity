@@ -498,11 +498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rankDataPrefab: {fileID: 1013221546723294746, guid: 97d68eb202d44a54a801cba9cd445e78, type: 3}
   rankPanel: {fileID: 2092685737}
-  playerDatas:
-  - playerName: MooDeng
-    profileSprite: {fileID: 0}
-    rankNumber: 0
-    playerScore: 5000
+  playerDatas: []
   createdPlayerDatas: []
 --- !u!1 &672234069
 GameObject:
@@ -1230,7 +1226,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1835454060}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999965
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1517,7 +1513,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -249.99927}
+  m_AnchoredPosition: {x: 0, y: -250}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2092685738
