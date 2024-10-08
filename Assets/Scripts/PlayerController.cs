@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
-public enum Controls { mobile,pc}
 
 public class PlayerController : MonoBehaviour
 {
 
-
+    private PlayerInput playerInput;
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     public float doubleJumpForce = 8f;
@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
 
     public Animator playeranim;
 
-    public Controls controlmode;
    
 
     private float moveX;
@@ -50,11 +49,12 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerInput = GetComponent<PlayerInput>();
         footEmissions = footsteps.emission;
 
-        if (controlmode == Controls.mobile)
+        if (playerInput == null)
         {
-            UIManager.instance.EnableMobileControls();
+            Debug.LogError("PlayerInput ไม่ได้ถูกกำหนดค่า!");
         }
 
 
@@ -68,20 +68,17 @@ public class PlayerController : MonoBehaviour
         {
             canDoubleJump = true; // Reset double jump when grounded
 
-            if (controlmode == Controls.pc)
-            {
-                moveX = Input.GetAxis("Horizontal");
-            }
+            moveX = playerInput.actions["MoveLeft"].ReadValue<float>() * -1f + playerInput.actions["MoveRight"].ReadValue<float>();
 
 
-            if (Input.GetButtonDown("Jump"))
+            if (playerInput.actions["Jump"].triggered)
             {
                 Jump(jumpForce);
             }
         }
         else
         {
-            if (canDoubleJump && Input.GetButtonDown("Jump"))
+            if (canDoubleJump && playerInput.actions["Jump"].triggered)
             {
                 Jump(doubleJumpForce);
                 canDoubleJump = false; // Disable double jump until grounded again
@@ -95,14 +92,6 @@ public class PlayerController : MonoBehaviour
             Vector3 lookDirection = mousePosition - transform.position;
             float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
 
-            // ... (your existing code for rotation)
-
-            // Handle shooting
-            if (controlmode == Controls.pc && Input.GetButtonDown("Fire1") && Time.time >= nextFireTime)
-            {
-                Shoot();
-                nextFireTime = Time.time + 1f / fireRate; // Set the next allowed fire time
-            }
         }
         SetAnimations();
 
@@ -138,7 +127,6 @@ public class PlayerController : MonoBehaviour
             footEmissions.rateOverTime = 0f;
         }
 
-        playeranim.SetBool("isGrounded", isGroundedBool);
        
     }
 
@@ -157,12 +145,8 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        // Player movement
-        if (controlmode == Controls.pc)
-        {
-            moveX = Input.GetAxis("Horizontal");
-        }
-       
+        moveX = playerInput.actions["MoveLeft"].ReadValue<float>() * -1f + playerInput.actions["MoveRight"].ReadValue<float>();
+
 
 
         rb.velocity = new Vector2(moveX * moveSpeed, rb.velocity.y);

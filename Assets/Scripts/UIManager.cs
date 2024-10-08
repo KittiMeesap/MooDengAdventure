@@ -62,10 +62,6 @@ public class UIManager : MonoBehaviour
 
         if (blackScreen.color.a <= 0f)
         {
-            if(playerController.controlmode == Controls.mobile)
-            {
-                EnableMobileControls();
-            }
             fadeFromBlack = false;
         }
     }
