@@ -67,6 +67,7 @@ public class RankUIManager : MonoBehaviour
     public void ReloadRankData()
     {
         ClearRankData();
+        SortRankData();
         CreateRankData();
     }
 
