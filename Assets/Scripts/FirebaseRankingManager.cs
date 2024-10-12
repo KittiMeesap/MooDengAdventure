@@ -4,6 +4,7 @@ using UnityEngine;
 using Proyecto26;
 using SimpleJSON;
 using System.Linq;
+using UnityEditor.PackageManager;
 
 [System.Serializable]
 public struct Ranking
@@ -17,7 +18,7 @@ public class FirebaseRankingManager : MonoBehaviour
     public const string secret = "2S8Q9HGudjIZuK1nmJJo56249y2XB51sFCxRESgx";
 
     [Header("Main")]
-    public RankUIManager RankUIManager;
+    public RankUIManager rankUIManager;
     public Ranking ranking;
 
     [Header("New Data")]
@@ -117,10 +118,12 @@ public class FirebaseRankingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         //TestSetData();
         //TestSetData2();
-        TestGetData();
-        TestGetData2();
+        //TestGetData();
+        //TestGetData2();
+        ReloadSortingData();
     }
 
     [ContextMenu("Set Local Data To Database")]
@@ -133,6 +136,67 @@ public class FirebaseRankingManager : MonoBehaviour
         }).Catch(error =>
         {
             Debug.Log("Error to Set Ranking Data Server");
+        });
+    }
+
+    public void CalculateRankFormScore()
+    {
+        List<PlayerData> sortRankPlayers = new List<PlayerData>();
+        sortRankPlayers = ranking.playerDatas.OrderByDescending(data => data.playerTime).ToList();
+
+        for (int i = 0; i < sortRankPlayers.Count; i++)
+        {
+            PlayerData changedRankNum = sortRankPlayers[i];
+            changedRankNum.rankNumber = i +1;
+        }
+
+        ranking.playerDatas = sortRankPlayers;
+
+    }
+
+    public void FindYourDataInRanking()
+    {
+        rankUIManager.yourRankData.playerData = ranking.playerDatas
+            .Where(data => data.playerName == currentPlayerData.playerName).FirstOrDefault();
+
+        rankUIManager.yourRankData.UpdateData();
+    }
+
+    public void ReloadSortingData()
+    {
+        string urlData = $"{url}/ranking/playerDatas.json?auth={secret}";
+
+        RestClient.Get(urlData).Then(response =>
+        {
+            Debug.Log(response.Text);
+            JSONNode jsonNode = JSONNode.Parse(response.Text);
+
+            ranking = new Ranking();
+            ranking.playerDatas = new List<PlayerData>();
+            for (int i = 0; i < jsonNode.Count; i++)
+            {
+                ranking.playerDatas.Add(new PlayerData(jsonNode[i]["rankNumber"],
+                    jsonNode[i]["playerName"],
+                    jsonNode[i]["playerTime"],
+                    null));
+            }
+            CalculateRankFormScore();
+
+            string urlPlayerData = $"{url}/ranking/.json?auth={secret}";
+
+            RestClient.Put<Ranking>(urlPlayerData, ranking).Then(response =>
+            {
+                Debug.Log("Upload Data Complete");
+                rankUIManager.playerDatas = ranking.playerDatas;
+                rankUIManager.ReloadRankData();
+                FindYourDataInRanking();
+            }).Catch(error =>
+            {
+                Debug.Log("Error on set to server");
+            });
+        }).Catch(Error =>
+        {
+            Debug.Log("Error to get data from server");
         });
     }
 

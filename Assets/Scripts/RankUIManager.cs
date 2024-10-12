@@ -9,7 +9,9 @@ public class RankUIManager : MonoBehaviour
     public Transform rankPanel;
 
     public List<PlayerData> playerDatas = new List<PlayerData>(); 
-    public List<GameObject> createdPlayerData = new List<GameObject>(); 
+    public List<GameObject> createdPlayerData = new List<GameObject>();
+
+    public RankData yourRankData;
 
     void Start()
     {
@@ -22,14 +24,6 @@ public class RankUIManager : MonoBehaviour
         {
             GameObject rankObj = Instantiate(rankDataPrefab, rankPanel);
             RankData rankData = rankObj.GetComponent<RankData>();
-
-            rankData.playerData = new PlayerData
-            {
-                playerName = player.playerName,
-                playerTime = player.playerTime,
-                rankNumber = player.rankNumber,
-                profileSprite = player.profileSprite
-            };
 
             rankData.UpdateData(player);
             createdPlayerData.Add(rankObj);
@@ -45,22 +39,12 @@ public class RankUIManager : MonoBehaviour
         createdPlayerData.Clear();
     }
 
-    public void SortRankData()
-    {
-        playerDatas = playerDatas
-            .OrderBy(data => data.playerTime)
-            .ToList();
-
-        for (int i = 0; i < playerDatas.Count; i++)
-        {
-            playerDatas[i].rankNumber = i + 1; 
-        }
-    }
+    
 
     public void ReloadRankData()
     {
         ClearRankData();
-        SortRankData();
+        //SortRankData();
         CreateRankData();
     }
     public void AddPlayerData(string playerName, float playerTime, Sprite profileSprite)

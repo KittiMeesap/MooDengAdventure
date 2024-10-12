@@ -1201,7 +1201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7795b573069bac0458560a2715c6c03c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RankUIManager: {fileID: 0}
+  RankUIManager: {fileID: 1985814286}
   ranking:
     playerDatas: []
   currentPlayerData:
@@ -1533,6 +1533,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1728232881182883273, guid: 95a9d953728b2f947a696cdccddf587e, type: 3}
   m_PrefabInstance: {fileID: 4981461931960744916}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1758493380 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7289720521901037301, guid: 95a9d953728b2f947a696cdccddf587e, type: 3}
+  m_PrefabInstance: {fileID: 4981461931960744916}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 136c4873f4ff99e4fbb6dd6d62f6818f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1824496219
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,6 +1710,7 @@ MonoBehaviour:
     rankNumber: 0
     playerTime: 10
   createdPlayerData: []
+  yourRankData: {fileID: 1758493380}
 --- !u!224 &2101293001 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4154551816599718969, guid: 8d59bc6417573ff489c8b12a89f5c809, type: 3}
