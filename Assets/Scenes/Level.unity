@@ -23776,6 +23776,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 132968423}
+  rankUIManager: {fileID: 0}
+  playerName: Player
+  playerProfile: {fileID: 0}
 --- !u!1 &1547273733
 GameObject:
   m_ObjectHideFlags: 0
@@ -29845,6 +29848,10 @@ PrefabInstance:
     - target: {fileID: 2212605441015427387, guid: 7a26d8b4b1231df44980965fc48c8d65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2809956967144967924, guid: 7a26d8b4b1231df44980965fc48c8d65, type: 3}
+      propertyPath: m_text
+      value: 00:00
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
