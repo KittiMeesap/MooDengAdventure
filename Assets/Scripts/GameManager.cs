@@ -135,4 +135,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void OnPlayerFinish()
+    {
+        FindObjectOfType<Timer>().StopTimer();
+    }
 }

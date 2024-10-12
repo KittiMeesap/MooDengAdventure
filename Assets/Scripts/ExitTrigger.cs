@@ -25,4 +25,13 @@ public class ExitTrigger : MonoBehaviour
         // Do something after flag anim
         GameManager.instance.LevelComplete();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            FindObjectOfType<GameManager>().OnPlayerFinish();
+        }
+    }
+
 }

@@ -338,7 +338,7 @@ MonoBehaviour:
   imgPlayer: {fileID: 3119209176391419767}
   rankPlayerText: {fileID: 3048544651486208012}
   namePlayerText: {fileID: 4372203317622783900}
-  timeText: {fileID: 3062534678853133858}
+  timeText: {fileID: 2809956967144967924, guid: 7a26d8b4b1231df44980965fc48c8d65, type: 3}
 --- !u!1 &8100042452469034111
 GameObject:
   m_ObjectHideFlags: 0
