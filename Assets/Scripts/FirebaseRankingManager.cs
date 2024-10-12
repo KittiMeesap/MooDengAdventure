@@ -156,8 +156,10 @@ public class FirebaseRankingManager : MonoBehaviour
 
     public void FindYourDataInRanking()
     {
-        rankUIManager.yourRankData.playerData = ranking.playerDatas
+        currentPlayerData = ranking.playerDatas
             .Where(data => data.playerName == currentPlayerData.playerName).FirstOrDefault();
+
+        rankUIManager.yourRankData.playerData = currentPlayerData;
 
         rankUIManager.yourRankData.UpdateData();
     }
@@ -180,6 +182,59 @@ public class FirebaseRankingManager : MonoBehaviour
                     jsonNode[i]["playerTime"],
                     null));
             }
+            CalculateRankFormScore();
+
+            string urlPlayerData = $"{url}/ranking/.json?auth={secret}";
+
+            RestClient.Put<Ranking>(urlPlayerData, ranking).Then(response =>
+            {
+                Debug.Log("Upload Data Complete");
+                rankUIManager.playerDatas = ranking.playerDatas;
+                rankUIManager.ReloadRankData();
+                FindYourDataInRanking();
+            }).Catch(error =>
+            {
+                Debug.Log("Error on set to server");
+            });
+        }).Catch(Error =>
+        {
+            Debug.Log("Error to get data from server");
+        });
+    }
+
+    public void AddDataWithSorting()
+    {
+        string urlData = $"{url}/ranking/playerDatas.json?auth={secret}";
+
+        RestClient.Get(urlData).Then(response =>
+        {
+            Debug.Log(response.Text);
+            JSONNode jsonNode = JSONNode.Parse(response.Text);
+
+            ranking = new Ranking();
+            ranking.playerDatas = new List<PlayerData>();
+            for (int i = 0; i < jsonNode.Count; i++)
+            {
+                ranking.playerDatas.Add(new PlayerData(
+                    jsonNode[i]["rankNumber"],
+                    jsonNode[i]["playerName"],
+                    jsonNode[i]["playerTime"],
+                    null));
+            }
+
+            PlayerData checkPlayerData = ranking.playerDatas.FirstOrDefault(data => data.playerName==currentPlayerData.playerName);
+            int indexOfPlayer = ranking.playerDatas.IndexOf(checkPlayerData);
+
+            if (checkPlayerData.playerName != null)
+            {
+                checkPlayerData.playerTime = currentPlayerData.playerTime;
+                ranking.playerDatas[indexOfPlayer] = checkPlayerData;
+            }
+            else
+            {
+                ranking.playerDatas.Add(currentPlayerData);
+            }
+
             CalculateRankFormScore();
 
             string urlPlayerData = $"{url}/ranking/.json?auth={secret}";
