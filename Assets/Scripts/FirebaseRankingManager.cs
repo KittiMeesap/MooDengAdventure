@@ -139,7 +139,7 @@ public class FirebaseRankingManager : MonoBehaviour
         });
     }
 
-    public void CalculateRankFormScore()
+    public void CalculateRankFromScore()
     {
         List<PlayerData> sortRankPlayers = new List<PlayerData>();
         sortRankPlayers = ranking.playerDatas.OrderByDescending(data => data.playerTime).ToList();
@@ -177,12 +177,13 @@ public class FirebaseRankingManager : MonoBehaviour
             ranking.playerDatas = new List<PlayerData>();
             for (int i = 0; i < jsonNode.Count; i++)
             {
-                ranking.playerDatas.Add(new PlayerData(jsonNode[i]["rankNumber"],
+                ranking.playerDatas.Add(new PlayerData(
+                    jsonNode[i]["rankNumber"],
                     jsonNode[i]["playerName"],
                     jsonNode[i]["playerTime"],
                     null));
             }
-            CalculateRankFormScore();
+            CalculateRankFromScore();
 
             string urlPlayerData = $"{url}/ranking/.json?auth={secret}";
 
@@ -235,7 +236,7 @@ public class FirebaseRankingManager : MonoBehaviour
                 ranking.playerDatas.Add(currentPlayerData);
             }
 
-            CalculateRankFormScore();
+            CalculateRankFromScore();
 
             string urlPlayerData = $"{url}/ranking/.json?auth={secret}";
 

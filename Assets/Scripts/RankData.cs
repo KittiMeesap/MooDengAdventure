@@ -7,9 +7,9 @@ using Unity.VisualScripting;
 public struct PlayerData
 {
     public string playerName;
-    public Sprite profileSprite;
     public int rankNumber;
     public float playerTime;
+    public Sprite profileSprite;
 
     public PlayerData(int rankNumber, string playerName, float playerTime, Sprite profileSprite)
     {
