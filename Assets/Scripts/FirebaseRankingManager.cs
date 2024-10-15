@@ -141,13 +141,14 @@ public class FirebaseRankingManager : MonoBehaviour
 
     public void CalculateRankFromScore()
     {
-        List<PlayerData> sortRankPlayers = new List<PlayerData>();
-        sortRankPlayers = ranking.playerDatas.OrderByDescending(data => data.playerTime).ToList();
+        List<PlayerData> sortRankPlayers = ranking.playerDatas.OrderBy(data => data.playerTime).ToList();
 
         for (int i = 0; i < sortRankPlayers.Count; i++)
         {
             PlayerData changedRankNum = sortRankPlayers[i];
-            changedRankNum.rankNumber = i +1;
+            changedRankNum.rankNumber = i + 1; // ÍÑ»à´µËÁÒÂàÅ¢ÅÓ´Ñº
+
+            sortRankPlayers[i] = changedRankNum;
         }
 
         ranking.playerDatas = sortRankPlayers;
@@ -217,13 +218,13 @@ public class FirebaseRankingManager : MonoBehaviour
             for (int i = 0; i < jsonNode.Count; i++)
             {
                 ranking.playerDatas.Add(new PlayerData(
-                    jsonNode[i]["rankNumber"],
-                    jsonNode[i]["playerName"],
-                    jsonNode[i]["playerTime"],
-                    null));
+                    rankNumber: jsonNode[i]["rankNumber"],
+                    playerName: jsonNode[i]["playerName"],
+                    playerTime: jsonNode[i]["playerTime"],
+                    profileSprite: null));
             }
 
-            PlayerData checkPlayerData = ranking.playerDatas.FirstOrDefault(data => data.playerName==currentPlayerData.playerName);
+            PlayerData checkPlayerData = ranking.playerDatas.FirstOrDefault(data => data.playerName == currentPlayerData.playerName);
             int indexOfPlayer = ranking.playerDatas.IndexOf(checkPlayerData);
 
             if (checkPlayerData.playerName != null)
@@ -248,9 +249,9 @@ public class FirebaseRankingManager : MonoBehaviour
                 FindYourDataInRanking();
             }).Catch(error =>
             {
-                Debug.Log("Error on set to server");
+                Debug.Log("error on set to server");
             });
-        }).Catch(Error =>
+        }).Catch(error =>
         {
             Debug.Log("Error to get data from server");
         });
