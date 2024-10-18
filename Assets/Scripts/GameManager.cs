@@ -68,10 +68,6 @@ public class GameManager : MonoBehaviour
     {
         if (!isGameOver)
         {
-            // Disable Mobile Controls
-            UIManager.instance.DisableMobileControls();
-            // Initiate screen fade
-            UIManager.instance.fadeToBlack = true;
 
             // Disable the player object
             playerController.gameObject.SetActive(false);

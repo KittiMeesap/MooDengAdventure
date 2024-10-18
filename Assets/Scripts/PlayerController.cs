@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviour
    // public Transform firePoint;
 
     public float fireRate = 0.5f; // Time between each shot
-    private float nextFireTime = 0f; // Time of the next allowed shot
 
 
     
@@ -85,14 +84,14 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (!isPaused)
+        /*if (!isPaused)
         {
             // Calculate rotation angle based on mouse position
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 lookDirection = mousePosition - transform.position;
             float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
 
-        }
+        }*/
         SetAnimations();
 
         if (moveX != 0)
@@ -173,66 +172,4 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.Death();
         }
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //mobile;
-    public void MobileMove(float value)
-    {
-        moveX = value;
-    }
-    public void MobileJump()
-    {
-        if (isGroundedBool)
-        {
-            // Perform initial jump
-            Jump(jumpForce);
-        }
-        else
-        {
-            // Perform double jump if allowed
-            if (canDoubleJump)
-            {
-                Jump(doubleJumpForce);
-                canDoubleJump = false; // Disable double jump until grounded again
-            }
-        }
-    }
-
-    public void Shoot()
-    {
-        //GameObject fireBall = Instantiate(projectile, firePoint.position, Quaternion.identity);
-        //fireBall.GetComponent<Rigidbody2D>().AddForce(firePoint.right * 500f);
-    }
-
-    public void MobileShoot()
-    {
-        if (Time.time >= nextFireTime)
-        {
-            Shoot();
-            nextFireTime = Time.time + 1f / fireRate; // Set the next allowed fire time
-        }
-    }
-
 }

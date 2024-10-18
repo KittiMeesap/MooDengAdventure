@@ -4,7 +4,6 @@ using UnityEngine;
 using Proyecto26;
 using SimpleJSON;
 using System.Linq;
-using UnityEditor.PackageManager;
 
 [System.Serializable]
 public struct Ranking
